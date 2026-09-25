@@ -20,9 +20,4 @@ const listPatientsQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(10),
 });
 
-// :id route parameter
-const idParamSchema = z.object({
-  id: z.uuid('Invalid id'),
-});
-
-module.exports = { patientSchema, listPatientsQuerySchema, idParamSchema };
+module.exports = { patientSchema, listPatientsQuerySchema };
