@@ -1,5 +1,6 @@
 const patientService = require('../services/patient.service');
-const { listPatientsQuerySchema, idParamSchema } = require('../validators/patient.validator');
+const { listPatientsQuerySchema } = require('../validators/patient.validator');
+const { idParamSchema } = require('../validators/common.validator');
 
 async function create(req, res) {
   const patient = await patientService.createPatient(req.body);
