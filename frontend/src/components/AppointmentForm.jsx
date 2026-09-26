@@ -33,13 +33,13 @@ export default function AppointmentForm({ onSaved, onCancel }) {
 
   return (
     <form className="card form" onSubmit={handleSubmit}>
-      <h2>New appointment</h2>
+      <h2>Nouveau rendez-vous</h2>
 
       <div className="form-grid">
         <label>
           Patient
           <select name="patientId" value={values.patientId} onChange={handleChange} required>
-            <option value="">Select a patient</option>
+            <option value="">Sélectionner un patient</option>
             {patients.map((patient) => (
               <option key={patient.id} value={patient.id}>
                 {patient.fullName} ({patient.cin})
@@ -48,7 +48,7 @@ export default function AppointmentForm({ onSaved, onCancel }) {
           </select>
         </label>
         <label>
-          Date and time
+          Date et heure
           <input
             type="datetime-local"
             name="appointmentDate"
@@ -60,11 +60,11 @@ export default function AppointmentForm({ onSaved, onCancel }) {
       </div>
 
       <label>
-        Reason
+        Motif
         <input name="reason" value={values.reason} onChange={handleChange} maxLength={255} required />
       </label>
       <label>
-        Notes (optional)
+        Notes (optionnel)
         <textarea name="notes" value={values.notes} onChange={handleChange} rows={3} />
       </label>
 
@@ -72,10 +72,10 @@ export default function AppointmentForm({ onSaved, onCancel }) {
 
       <div className="actions">
         <button className="button" type="submit" disabled={submitting}>
-          {submitting ? 'Saving...' : 'Save'}
+          {submitting ? 'Enregistrement...' : 'Enregistrer'}
         </button>
         <button className="button secondary" type="button" onClick={onCancel}>
-          Cancel
+          Annuler
         </button>
       </div>
     </form>

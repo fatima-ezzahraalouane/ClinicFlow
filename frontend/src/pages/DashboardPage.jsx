@@ -12,18 +12,18 @@ export default function DashboardPage() {
   }, []);
 
   if (error) return <p className="error">{error}</p>;
-  if (!stats) return <p className="muted">Loading...</p>;
+  if (!stats) return <p className="muted">Chargement...</p>;
 
   const cards = [
     { label: 'Total patients', value: stats.totalPatients },
-    { label: "Today's appointments", value: stats.todayAppointments },
-    { label: 'Pending', value: stats.pendingCount },
-    { label: 'Confirmed', value: stats.confirmedCount },
+    { label: 'Rendez-vous du jour', value: stats.todayAppointments },
+    { label: 'En attente', value: stats.pendingCount },
+    { label: 'Confirmés', value: stats.confirmedCount },
   ];
 
   return (
     <>
-      <h1>Dashboard</h1>
+      <h1>Tableau de bord</h1>
       <div className="stats">
         {cards.map((card) => (
           <div key={card.label} className="card stat">

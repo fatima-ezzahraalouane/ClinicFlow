@@ -36,11 +36,11 @@ export default function PatientForm({ patient, onSaved, onCancel }) {
 
   return (
     <form className="card form" onSubmit={handleSubmit}>
-      <h2>{patient ? 'Edit patient' : 'New patient'}</h2>
+      <h2>{patient ? 'Modifier le patient' : 'Nouveau patient'}</h2>
 
       <div className="form-grid">
         <label>
-          Full name
+          Nom complet
           <input name="fullName" value={values.fullName} onChange={handleChange} maxLength={150} required />
         </label>
         <label>
@@ -48,17 +48,17 @@ export default function PatientForm({ patient, onSaved, onCancel }) {
           <input name="cin" value={values.cin} onChange={handleChange} maxLength={20} required />
         </label>
         <label>
-          Phone
+          Téléphone
           <input name="phone" value={values.phone} onChange={handleChange} maxLength={20} required />
         </label>
         <label>
-          Birth date
+          Date de naissance
           <input type="date" name="birthDate" value={values.birthDate} onChange={handleChange} required />
         </label>
       </div>
 
       <label>
-        Address (optional)
+        Adresse (optionnel)
         <input name="address" value={values.address} onChange={handleChange} />
       </label>
 
@@ -66,10 +66,10 @@ export default function PatientForm({ patient, onSaved, onCancel }) {
 
       <div className="actions">
         <button className="button" type="submit" disabled={submitting}>
-          {submitting ? 'Saving...' : 'Save'}
+          {submitting ? 'Enregistrement...' : 'Enregistrer'}
         </button>
         <button className="button secondary" type="button" onClick={onCancel}>
-          Cancel
+          Annuler
         </button>
       </div>
     </form>

@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { request } from '../api/client';
+import { STATUSES, STATUS_LABELS } from '../api/labels';
 import ErrorMessage from '../components/ErrorMessage';
 import AppointmentForm from '../components/AppointmentForm';
-
-const STATUSES = ['pending', 'confirmed', 'cancelled'];
 
 export default function AppointmentsPage() {
   const [appointments, setAppointments] = useState(null);
@@ -48,10 +47,10 @@ export default function AppointmentsPage() {
   return (
     <>
       <div className="toolbar">
-        <h1>Appointments</h1>
+        <h1>Rendez-vous</h1>
         {!showForm && (
           <button className="button" onClick={() => setShowForm(true)}>
-            New appointment
+            Nouveau rendez-vous
           </button>
         )}
       </div>
@@ -64,12 +63,12 @@ export default function AppointmentsPage() {
           <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
         </label>
         <label>
-          Status
+          Statut
           <select value={status} onChange={(e) => setStatus(e.target.value)}>
-            <option value="">All</option>
+            <option value="">Tous</option>
             {STATUSES.map((value) => (
               <option key={value} value={value}>
-                {value}
+                {STATUS_LABELS[value]}
               </option>
             ))}
           </select>
@@ -82,7 +81,7 @@ export default function AppointmentsPage() {
               setStatus('');
             }}
           >
-            Clear filters
+            Effacer les filtres
           </button>
         )}
       </div>
@@ -90,17 +89,17 @@ export default function AppointmentsPage() {
       <ErrorMessage error={error} />
 
       {!appointments ? (
-        <p className="muted">Loading...</p>
+        <p className="muted">Chargement...</p>
       ) : appointments.length === 0 ? (
-        <p className="muted">No appointments found.</p>
+        <p className="muted">Aucun rendez-vous trouvé.</p>
       ) : (
         <table className="table">
           <thead>
             <tr>
               <th>Date</th>
               <th>Patient</th>
-              <th>Reason</th>
-              <th>Status</th>
+              <th>Motif</th>
+              <th>Statut</th>
             </tr>
           </thead>
           <tbody>
@@ -119,7 +118,7 @@ export default function AppointmentsPage() {
                   >
                     {STATUSES.map((value) => (
                       <option key={value} value={value}>
-                        {value}
+                        {STATUS_LABELS[value]}
                       </option>
                     ))}
                   </select>

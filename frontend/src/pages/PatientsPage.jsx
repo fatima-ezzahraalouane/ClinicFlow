@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import ErrorMessage from '../components/ErrorMessage';
 import PatientForm from '../components/PatientForm';
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 10;
 
 export default function PatientsPage() {
   const { user } = useAuth();
@@ -41,7 +41,7 @@ export default function PatientsPage() {
   }
 
   async function handleDelete(patient) {
-    if (!window.confirm(`Delete ${patient.fullName}?`)) return;
+    if (!window.confirm(`Supprimer ${patient.fullName} ?`)) return;
 
     setError(null);
     try {
@@ -64,7 +64,7 @@ export default function PatientsPage() {
         <h1>Patients</h1>
         {!editing && (
           <button className="button" onClick={() => setEditing('new')}>
-            Add patient
+            Ajouter un patient
           </button>
         )}
       </div>
@@ -81,29 +81,29 @@ export default function PatientsPage() {
       <form className="search" onSubmit={handleSearch}>
         <input
           type="search"
-          placeholder="Search by full name or CIN"
+          placeholder="Rechercher par nom complet ou CIN"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
         />
         <button className="button" type="submit">
-          Search
+          Rechercher
         </button>
       </form>
 
       <ErrorMessage error={error} />
 
       {!result ? (
-        <p className="muted">Loading...</p>
+        <p className="muted">Chargement...</p>
       ) : result.data.length === 0 ? (
-        <p className="muted">No patients found.</p>
+        <p className="muted">Aucun patient trouvé.</p>
       ) : (
         <table className="table">
           <thead>
             <tr>
-              <th>Full name</th>
+              <th>Nom complet</th>
               <th>CIN</th>
-              <th>Phone</th>
-              <th>Birth date</th>
+              <th>Téléphone</th>
+              <th>Date de naissance</th>
               <th></th>
             </tr>
           </thead>
@@ -118,11 +118,11 @@ export default function PatientsPage() {
                 <td>{patient.birthDate}</td>
                 <td className="row-actions">
                   <button className="button secondary" onClick={() => setEditing(patient)}>
-                    Edit
+                    Modifier
                   </button>
                   {user.role === 'admin' && (
                     <button className="button danger" onClick={() => handleDelete(patient)}>
-                      Delete
+                      Supprimer
                     </button>
                   )}
                 </td>
@@ -135,13 +135,14 @@ export default function PatientsPage() {
       {result && (
         <div className="pagination">
           <button className="button secondary" onClick={() => setPage(page - 1)} disabled={page <= 1}>
-            Previous
+            Précédent
           </button>
           <span>
-            Page {page} of {totalPages} ({result.pagination.total} patients)
+            Page {page} sur {totalPages} ({result.pagination.total} patient
+            {result.pagination.total > 1 ? 's' : ''})
           </span>
           <button className="button secondary" onClick={() => setPage(page + 1)} disabled={page >= totalPages}>
-            Next
+            Suivant
           </button>
         </div>
       )}

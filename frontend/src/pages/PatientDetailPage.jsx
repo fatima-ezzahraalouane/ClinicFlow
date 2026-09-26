@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { request } from '../api/client';
+import { STATUS_LABELS } from '../api/labels';
 import { useAuth } from '../context/AuthContext';
 import ErrorMessage from '../components/ErrorMessage';
 
@@ -18,7 +19,7 @@ export default function PatientDetailPage() {
   }, [id]);
 
   async function handleDelete() {
-    if (!window.confirm(`Delete ${patient.fullName}?`)) return;
+    if (!window.confirm(`Supprimer ${patient.fullName} ?`)) return;
 
     setError(null);
     try {
@@ -32,21 +33,21 @@ export default function PatientDetailPage() {
   if (!patient) {
     return (
       <>
-        <Link to="/patients">&larr; Back to patients</Link>
-        {error ? <ErrorMessage error={error} /> : <p className="muted">Loading...</p>}
+        <Link to="/patients">&larr; Retour aux patients</Link>
+        {error ? <ErrorMessage error={error} /> : <p className="muted">Chargement...</p>}
       </>
     );
   }
 
   return (
     <>
-      <Link to="/patients">&larr; Back to patients</Link>
+      <Link to="/patients">&larr; Retour aux patients</Link>
 
       <div className="toolbar">
         <h1>{patient.fullName}</h1>
         {user.role === 'admin' && (
           <button className="button danger" onClick={handleDelete}>
-            Delete patient
+            Supprimer le patient
           </button>
         )}
       </div>
@@ -56,24 +57,24 @@ export default function PatientDetailPage() {
       <dl className="card details">
         <dt>CIN</dt>
         <dd>{patient.cin}</dd>
-        <dt>Phone</dt>
+        <dt>Téléphone</dt>
         <dd>{patient.phone}</dd>
-        <dt>Birth date</dt>
+        <dt>Date de naissance</dt>
         <dd>{patient.birthDate}</dd>
-        <dt>Address</dt>
+        <dt>Adresse</dt>
         <dd>{patient.address || '-'}</dd>
       </dl>
 
-      <h2>Appointments</h2>
+      <h2>Rendez-vous</h2>
       {patient.appointments.length === 0 ? (
-        <p className="muted">No appointments.</p>
+        <p className="muted">Aucun rendez-vous.</p>
       ) : (
         <table className="table">
           <thead>
             <tr>
               <th>Date</th>
-              <th>Status</th>
-              <th>Reason</th>
+              <th>Statut</th>
+              <th>Motif</th>
               <th>Notes</th>
             </tr>
           </thead>
@@ -82,7 +83,7 @@ export default function PatientDetailPage() {
               <tr key={appointment.id}>
                 <td>{appointment.appointmentDate.slice(0, 16)}</td>
                 <td>
-                  <span className={`badge ${appointment.status}`}>{appointment.status}</span>
+                  <span className={`badge ${appointment.status}`}>{STATUS_LABELS[appointment.status]}</span>
                 </td>
                 <td>{appointment.reason}</td>
                 <td>{appointment.notes || '-'}</td>

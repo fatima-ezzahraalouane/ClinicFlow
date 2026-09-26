@@ -7,7 +7,7 @@ const PATIENT_COLUMNS = `
 
 function rethrowCinConflict(err) {
   if (err.code === '23505' && err.constraint === 'patients_cin_key') {
-    throw new AppError(409, 'A patient with this CIN already exists');
+    throw new AppError(409, 'Un patient avec ce CIN existe déjà');
   }
   throw err;
 }
@@ -53,7 +53,7 @@ async function getPatientById(id) {
   const { rows } = await pool.query(`SELECT ${PATIENT_COLUMNS} FROM patients WHERE id = $1`, [id]);
 
   if (rows.length === 0) {
-    throw new AppError(404, 'Patient not found');
+    throw new AppError(404, 'Patient introuvable');
   }
 
   const appointments = await pool.query(
@@ -79,7 +79,7 @@ async function updatePatient(id, { fullName, cin, phone, birthDate, address }) {
     );
 
     if (rows.length === 0) {
-      throw new AppError(404, 'Patient not found');
+      throw new AppError(404, 'Patient introuvable');
     }
     return rows[0];
   } catch (err) {
@@ -92,11 +92,11 @@ async function deletePatient(id) {
     const { rowCount } = await pool.query('DELETE FROM patients WHERE id = $1', [id]);
 
     if (rowCount === 0) {
-      throw new AppError(404, 'Patient not found');
+      throw new AppError(404, 'Patient introuvable');
     }
   } catch (err) {
     if (err.code === '23001') {
-      throw new AppError(409, 'Cannot delete this patient: they still have appointments');
+      throw new AppError(409, 'Impossible de supprimer ce patient : il a encore des rendez-vous');
     }
     throw err;
   }

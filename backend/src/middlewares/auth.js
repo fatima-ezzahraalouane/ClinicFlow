@@ -7,7 +7,7 @@ function authenticate(req, res, next) {
   const [scheme, token] = header.split(' ');
 
   if (scheme !== 'Bearer' || !token) {
-    throw new AppError(401, 'Authentication token missing');
+    throw new AppError(401, "Jeton d'authentification manquant");
   }
 
   try {
@@ -15,7 +15,7 @@ function authenticate(req, res, next) {
     req.user = { id: payload.userId, role: payload.role };
     next();
   } catch {
-    throw new AppError(401, 'Invalid or expired token');
+    throw new AppError(401, 'Jeton invalide ou expiré');
   }
 }
 

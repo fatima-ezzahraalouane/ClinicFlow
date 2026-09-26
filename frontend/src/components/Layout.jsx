@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router';
 import { useAuth } from '../context/AuthContext';
+import { ROLE_LABELS } from '../api/labels';
 
 export default function Layout() {
   const { user, logout } = useAuth();
@@ -10,16 +11,16 @@ export default function Layout() {
         <span className="brand">ClinicFlow</span>
         <nav className="nav">
           <NavLink to="/" end>
-            Dashboard
+            Tableau de bord
           </NavLink>
           <NavLink to="/patients">Patients</NavLink>
-          <NavLink to="/appointments">Appointments</NavLink>
+          <NavLink to="/appointments">Rendez-vous</NavLink>
         </nav>
         <div className="user">
           <span>{user.fullName}</span>
-          <span className="role">{user.role}</span>
+          <span className="role">{ROLE_LABELS[user.role]}</span>
           <button className="button secondary" onClick={logout}>
-            Log out
+            Se déconnecter
           </button>
         </div>
       </header>

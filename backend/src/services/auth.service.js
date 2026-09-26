@@ -12,7 +12,7 @@ async function login(email, password) {
   const user = rows[0];
 
   if (!user || !(await bcrypt.compare(password, user.password_hash))) {
-    throw new AppError(401, 'Invalid email or password');
+    throw new AppError(401, 'Email ou mot de passe incorrect');
   }
 
   const token = jwt.sign({ userId: user.id, role: user.role }, config.jwt.secret, {
@@ -33,7 +33,7 @@ async function getMe(userId) {
   );
 
   if (rows.length === 0) {
-    throw new AppError(404, 'User not found');
+    throw new AppError(404, 'Utilisateur introuvable');
   }
 
   return rows[0];

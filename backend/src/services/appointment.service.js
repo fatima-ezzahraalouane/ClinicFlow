@@ -16,7 +16,7 @@ async function createAppointment({ patientId, appointmentDate, reason, notes }, 
     return rows[0];
   } catch (err) {
     if (err.code === '23503' && err.constraint === 'appointments_patient_id_fkey') {
-      throw new AppError(404, 'Patient not found');
+      throw new AppError(404, 'Patient introuvable');
     }
     throw err;
   }
@@ -59,14 +59,14 @@ async function updateStatus(id, status) {
   const appointment = rows[0];
 
   if (!appointment) {
-    throw new AppError(404, 'Appointment not found');
+    throw new AppError(404, 'Rendez-vous introuvable');
   }
 
   if (
     status === 'confirmed' &&
     (await hasConfirmedConflict(appointment.patient_id, appointment.appointment_date, id))
   ) {
-    throw new AppError(400, 'This patient already has a confirmed appointment within 30 minutes');
+    throw new AppError(400, "Ce patient a déjà un rendez-vous confirmé à moins de 30 minutes d'intervalle");
   }
 
   const updated = await pool.query(

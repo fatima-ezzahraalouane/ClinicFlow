@@ -29,7 +29,7 @@ export default function LoginPage() {
     <div className="login-page">
       <form className="card login-card" onSubmit={handleSubmit}>
         <h1>ClinicFlow</h1>
-        <p className="muted">Sign in to continue</p>
+        <p className="muted">Connectez-vous pour continuer</p>
 
         <label>
           Email
@@ -43,7 +43,7 @@ export default function LoginPage() {
         </label>
 
         <label>
-          Password
+          Mot de passe
           <input
             type="password"
             value={password}
@@ -55,7 +55,7 @@ export default function LoginPage() {
         {error && <p className="error">{error}</p>}
 
         <button className="button" type="submit" disabled={submitting}>
-          {submitting ? 'Signing in...' : 'Sign in'}
+          {submitting ? 'Connexion...' : 'Se connecter'}
         </button>
       </form>
     </div>

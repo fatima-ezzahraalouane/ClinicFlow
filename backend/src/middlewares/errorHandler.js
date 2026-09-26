@@ -8,7 +8,7 @@ function errorHandler(err, req, res, next) {
 
   if (err instanceof ZodError) {
     return res.status(400).json({
-      message: 'Validation failed',
+      message: 'Données invalides',
       errors: err.issues.map((issue) => ({
         field: issue.path.join('.'),
         message: issue.message,
@@ -17,11 +17,11 @@ function errorHandler(err, req, res, next) {
   }
 
   if (err.type === 'entity.parse.failed') {
-    return res.status(400).json({ message: 'Invalid JSON body' });
+    return res.status(400).json({ message: 'Corps de requête JSON invalide' });
   }
 
   console.error(err);
-  return res.status(500).json({ message: 'Internal server error' });
+  return res.status(500).json({ message: 'Erreur interne du serveur' });
 }
 
 module.exports = errorHandler;
