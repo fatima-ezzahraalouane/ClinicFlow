@@ -6,6 +6,8 @@ Application web de gestion des patients et des rendez-vous d'une petite clinique
 
 ```
 ClinicFlow/
+├── docs/
+│   └── ERD_ClinicFlow.pdf  # Conception : ERD + justification des relations
 ├── database/
 │   └── schema.sql      # Création des tables, contraintes et index
 ├── backend/            # API REST (Node + Express)
@@ -25,6 +27,8 @@ ClinicFlow/
 ## Installation
 
 ### 1. Base de données
+
+La conception de la base (diagramme ERD et justification des relations) est décrite dans [`docs/ERD_ClinicFlow.pdf`](docs/ERD_ClinicFlow.pdf).
 
 Créer une base vide nommée `clinicflow`, puis exécuter le script `database/schema.sql`.
 
