@@ -12,6 +12,8 @@ export default function Layout() {
           <NavLink to="/" end>
             Dashboard
           </NavLink>
+          <NavLink to="/patients">Patients</NavLink>
+          <NavLink to="/appointments">Appointments</NavLink>
         </nav>
         <div className="user">
           <span>{user.fullName}</span>
